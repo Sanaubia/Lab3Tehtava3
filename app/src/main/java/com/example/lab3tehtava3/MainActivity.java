@@ -22,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        LeagueEngine engine = LeagueApp.giveEngine();
+
+        final LeagueQuery query = new LeagueQuery();
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_main);
         final TextView vastaus = (TextView) findViewById (R.id.textView);
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 vastaus.setText ("Response: " + response.toString ());
+                query.parse(response);
                 Log.d ("VASTAUS", response.toString ( ));
             }
         }, new Response.ErrorListener ( ) {
@@ -42,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //MySingleton.getIsntace(this).addToRequestQueue(jsonObjectRequest);
+
+
         MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
 }
