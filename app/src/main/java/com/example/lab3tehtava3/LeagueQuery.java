@@ -22,23 +22,28 @@ public class LeagueQuery  {
         JSONObject dataString = string;
         LeagueEngine engine = LeagueApp.giveEngine();
         League lisattava = null;
-        lisattava = new League();
+
 
         try {
 
-          List<String> lista = new ArrayList<String>();
+
+            List<String> lista = new ArrayList<>();
 
             JSONArray array = dataString.getJSONArray("competitions");
 
             for(int i = 0 ; i < array.length() ; i++){
                 lista.add(array.getJSONObject(i).getString("name"));
 
+
             }
+
             Log.d("DEBUG**********************", lista.get(0));
             for(int i = 0 ; i < lista.size() ; i++){
+                lisattava = new League();
                 String name = lista.get(i);
                 lisattava.setName(name);
                 engine.addLeague(lisattava);
+                MainActivity.getInstance().updateList();
             }
 
 
